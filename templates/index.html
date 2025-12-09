@@ -1,0 +1,223 @@
+<!--
+index.html - Главный HTML шаблон приложения
+Этот файл определяет структуру веб-страницы, которая отображается пользователю
+Flask использует шаблонизатор Jinja2 для подстановки динамических данных
+-->
+
+<!DOCTYPE html>
+<!-- Объявление типа документа - HTML5 -->
+<html lang="ru">
+<!-- Открывающий тег HTML с указанием языка страницы (русский) -->
+
+<head>
+    <!-- Секция head содержит метаинформацию о странице и ссылки на ресурсы -->
+
+    <meta charset="UTF-8">
+    <!-- Кодировка страницы - UTF-8 поддерживает все символы, включая кириллицу -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Настройка viewport для корректного отображения на мобильных устройствах -->
+    <!-- width=device-width - ширина страницы равна ширине экрана устройства -->
+    <!-- initial-scale=1.0 - начальный масштаб 100% -->
+
+    <title>FlaskDateTimeVD04 - Текущие дата и время</title>
+    <!-- Заголовок страницы, отображается во вкладке браузера -->
+
+    <!-- Подключение CSS стилей из папки static -->
+    <!-- Функция url_for() генерирует правильный URL для статических файлов -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Иконка сайта (favicon) в формате SVG -->
+    <!-- data:image/svg+xml - встроенное SVG изображение -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏰</text></svg>">
+
+    <!-- Подключение шрифтов Google Fonts -->
+    <!-- Preconnect для ускорения загрузки шрифтов -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Orbitron - техно-шрифт для времени, Roboto - читаемый шрифт для текста -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Подключение Font Awesome для векторных иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Тело документа - видимая часть страницы -->
+
+    <!-- Основной контейнер для центрирования содержимого -->
+    <div class="container">
+
+        <!-- Шапка сайта -->
+        <header class="header">
+            <!-- Заголовок первого уровня -->
+            <h1>
+                <!-- Иконка часов из Font Awesome -->
+                <i class="fas fa-clock"></i>
+                <!-- Текст заголовока -->
+                FlaskDateTimeVD04 - Текущие дата и время
+            </h1>
+            <!-- Подзаголовок -->
+            <p class="subtitle">Актуальная информация в реальном времени</p>
+        </header>
+
+        <!-- Основное содержимое страницы -->
+        <main class="main-content">
+
+            <!-- Карточка для отображения времени -->
+            <div class="time-card">
+                <div class="time-display">
+                    <!-- Блок с текущим временем - здесь будет подставлено значение из Flask -->
+                    <!-- {{ time }} - это переменная Jinja2, Flask подставит сюда значение времени -->
+                    <div class="time-large" id="currentTime">{{ time }}</div>
+                    <!-- Подпись под временем -->
+                    <div class="time-label">Текущее время (24-часовой формат)</div>
+                </div>
+
+                <!-- Блок с информацией о часовом поясе -->
+                <div class="time-zone">
+                    <!-- Иконка глобуса -->
+                    <i class="fas fa-globe"></i>
+                    <!-- Текст и значение часового пояса -->
+                    Часовой пояс: <span class="highlight">{{ timezone }}</span>
+                </div>
+            </div>
+
+            <!-- Карточка для отображения даты -->
+            <div class="date-card">
+                <div class="date-display">
+                    <!-- Текущая дата -->
+                    <div class="date-large">{{ date }}</div>
+                    <!-- День недели -->
+                    <div class="weekday">{{ weekday }}</div>
+                </div>
+
+                <!-- Дополнительные форматы даты -->
+                <div class="date-details">
+                    <!-- Первый вариант формата -->
+                    <div class="detail-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Короткий формат: {{ date_short }}</span>
+                    </div>
+                    <!-- Второй вариант формата -->
+                    <div class="detail-item">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>ISO формат: {{ iso_date }}</span>
+                    </div>
+                    <!-- Третий вариант формата -->
+                    <div class="detail-item">
+                        <i class="fas fa-clock"></i>
+                        <span>12-часовой формат: {{ time_12h }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Карточка с детализированной информацией -->
+            <div class="info-card">
+                <!-- Заголовок карточки -->
+                <h3><i class="fas fa-info-circle"></i> Детали</h3>
+
+                <!-- Сетка для отображения отдельных компонентов времени -->
+                <div class="info-grid">
+                    <!-- Часы -->
+                    <div class="info-item">
+                        <div class="info-label">Часы</div>
+                        <div class="info-value">{{ hour }}</div>
+                    </div>
+                    <!-- Минуты -->
+                    <div class="info-item">
+                        <div class="info-label">Минуты</div>
+                        <div class="info-value">{{ minute }}</div>
+                    </div>
+                    <!-- Секунды -->
+                    <div class="info-item">
+                        <div class="info-label">Секунды</div>
+                        <div class="info-value">{{ second }}</div>
+                    </div>
+                    <!-- День -->
+                    <div class="info-item">
+                        <div class="info-label">День</div>
+                        <div class="info-value">{{ day }}</div>
+                    </div>
+                    <!-- Месяц -->
+                    <div class="info-item">
+                        <div class="info-label">Месяц</div>
+                        <div class="info-value">{{ month }}</div>
+                    </div>
+                    <!-- Год -->
+                    <div class="info-item">
+                        <div class="info-label">Год</div>
+                        <div class="info-value">{{ year }}</div>
+                    </div>
+                </div>
+
+                <!-- Unix timestamp -->
+                <div class="timestamp">
+                    <i class="fas fa-fingerprint"></i>
+                    Временная метка (timestamp): <code>{{ timestamp }}</code>
+                </div>
+            </div>
+
+            <!-- Карточка с элементами управления -->
+            <div class="control-card">
+                <h3><i class="fas fa-cogs"></i> Управление</h3>
+
+                <!-- Контейнер для кнопок -->
+                <div class="controls">
+                    <!-- Кнопка обновления времени -->
+                    <button id="refreshBtn" class="btn btn-primary">
+                        <i class="fas fa-sync-alt"></i> Обновить время
+                    </button>
+
+                    <!-- Кнопка получения JSON данных -->
+                    <button id="apiBtn" class="btn btn-secondary">
+                        <i class="fas fa-code"></i> Получить JSON
+                    </button>
+
+                    <!-- Кнопка копирования времени -->
+                    <button id="copyBtn" class="btn btn-success">
+                        <i class="fas fa-copy"></i> Копировать время
+                    </button>
+                </div>
+
+                <!-- Переключатель автообновления -->
+                <div class="auto-refresh">
+                    <label for="autoRefresh">
+                        <!-- Чекбокс для включения/выключения автообновления -->
+                        <input type="checkbox" id="autoRefresh" checked>
+                        Автообновление (каждую секунду)
+                    </label>
+                </div>
+            </div>
+        </main>
+
+        <!-- Подвал страницы -->
+        <footer class="footer">
+            <!-- Информация о приложении -->
+            <p>Приложение FlaskDateTimeVD04 создано с использованием Flask и Python</p>
+            <p>Текущая версия: 1.0.0 | <a href="/health">Статус приложения</a> | <a href="/about">О приложении</a></p>
+
+            <!-- Ссылки на технологии -->
+            <div class="footer-links">
+                <a href="https://flask.palletsprojects.com/" target="_blank">
+                    <i class="fab fa-python"></i> Flask
+                </a>
+                <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript" target="_blank">
+                    <i class="fab fa-js"></i> JavaScript
+                </a>
+                <a href="https://www.w3.org/Style/CSS/" target="_blank">
+                    <i class="fab fa-css3-alt"></i> CSS3
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Всплывающее уведомление (скрыто по умолчанию) -->
+    <!-- JavaScript будет показывать это уведомление при различных действиях -->
+    <div id="notification" class="notification"></div>
+
+    <!-- Подключение JavaScript файла -->
+    <!-- Файл script.js содержит логику для динамического обновления времени -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
