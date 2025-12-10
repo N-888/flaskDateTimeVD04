@@ -1,110 +1,107 @@
 <!--
-index.html - Главный HTML шаблон приложения
-Этот файл определяет структуру веб-страницы, которая отображается пользователю
-Flask использует шаблонизатор Jinja2 для подстановки динамических данных
+index.html - ЭТО ВНЕШНИЙ ВИД НАШЕГО ПРИЛОЖЕНИЯ
+Как обои и мебель в доме. Здесь только КРАСОТА, логика в других файлах.
 -->
 
+<!-- Говорим браузеру: "Это HTML5 документ" -->
 <!DOCTYPE html>
-<!-- Объявление типа документа - HTML5 -->
+
+<!-- Начинаем HTML документ, lang="ru" значит "язык русский" -->
 <html lang="ru">
-<!-- Открывающий тег HTML с указанием языка страницы (русский) -->
 
+<!-- ГОЛОВА документа (невидимая часть, настройки) -->
 <head>
-    <!-- Секция head содержит метаинформацию о странице и ссылки на ресурсы -->
-
+    <!-- Кодировка: UTF-8 понимает русские буквы, эмодзи и всё остальное -->
     <meta charset="UTF-8">
-    <!-- Кодировка страницы - UTF-8 поддерживает все символы, включая кириллицу -->
 
+    <!-- Настройка для телефонов: ширина=ширине экрана, масштаб=нормальный -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Настройка viewport для корректного отображения на мобильных устройствах -->
-    <!-- width=device-width - ширина страницы равна ширине экрана устройства -->
-    <!-- initial-scale=1.0 - начальный масштаб 100% -->
 
-    <title>FlaskDateTimeVD04 - Текущие дата и время</title>
-    <!-- Заголовок страницы, отображается во вкладке браузера -->
+    <!-- Заголовок вкладки в браузере -->
+    <title>FlaskDateTimeVD04 - Красивые часы</title>
 
-    <!-- Подключение CSS стилей из папки static -->
-    <!-- Функция url_for() генерирует правильный URL для статических файлов -->
+    <!-- Подключаем наши стили (краски для рисования) -->
+    <!-- {{ url_for(...) }} - волшебная команда Flask для поиска файлов -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 
-    <!-- Иконка сайта (favicon) в формате SVG -->
-    <!-- data:image/svg+xml - встроенное SVG изображение -->
+    <!-- Иконка сайта (маленькая картинка на вкладке) -->
+    <!-- Это эмодзи часов в виде SVG картинки -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⏰</text></svg>">
 
-    <!-- Подключение шрифтов Google Fonts -->
-    <!-- Preconnect для ускорения загрузки шрифтов -->
+    <!-- Подключаем красивые шрифты из интернета -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Orbitron - техно-шрифт для времени, Roboto - читаемый шрифт для текста -->
+    <!-- Orbitron - для цифр (как в научной фантастике) -->
+    <!-- Roboto - для обычного текста (красиво читается) -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
 
-    <!-- Подключение Font Awesome для векторных иконок -->
+    <!-- Подключаем иконки (маленькие картинки для кнопок) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 
+<!-- ТЕЛО документа (видимая часть, что видит пользователь) -->
 <body>
-    <!-- Тело документа - видимая часть страницы -->
-
-    <!-- Основной контейнер для центрирования содержимого -->
+    <!-- ОБЩИЙ КОНТЕЙНЕР - как рамка для картины -->
     <div class="container">
 
-        <!-- Шапка сайта -->
+        <!-- ШАПКА сайта (как вывеска на магазине) -->
         <header class="header">
-            <!-- Заголовок первого уровня -->
+            <!-- Главный заголовок -->
             <h1>
-                <!-- Иконка часов из Font Awesome -->
+                <!-- Иконка часов -->
                 <i class="fas fa-clock"></i>
-                <!-- Текст заголовока -->
+                <!-- Текст заголовка -->
                 FlaskDateTimeVD04 - Текущие дата и время
             </h1>
-            <!-- Подзаголовок -->
+            <!-- Подзаголовок (меньше и светлее) -->
             <p class="subtitle">Актуальная информация в реальном времени</p>
         </header>
 
-        <!-- Основное содержимое страницы -->
+        <!-- ОСНОВНОЕ СОДЕРЖИМОЕ (самое важное) -->
         <main class="main-content">
 
-            <!-- Карточка для отображения времени -->
+            <!-- КАРТОЧКА 1: ВРЕМЯ (самая большая и важная) -->
             <div class="time-card">
+                <!-- Блок для отображения времени -->
                 <div class="time-display">
-                    <!-- Блок с текущим временем - здесь будет подставлено значение из Flask -->
-                    <!-- {{ time }} - это переменная Jinja2, Flask подставит сюда значение времени -->
+                    <!-- Большие цифры времени -->
+                    <!-- {{ time }} - здесь Flask вставит настоящее время -->
                     <div class="time-large" id="currentTime">{{ time }}</div>
                     <!-- Подпись под временем -->
                     <div class="time-label">Текущее время (24-часовой формат)</div>
                 </div>
 
-                <!-- Блок с информацией о часовом поясе -->
+                <!-- Информация о часовом поясе -->
                 <div class="time-zone">
                     <!-- Иконка глобуса -->
                     <i class="fas fa-globe"></i>
-                    <!-- Текст и значение часового пояса -->
+                    <!-- Текст и часовой пояс -->
                     Часовой пояс: <span class="highlight">{{ timezone }}</span>
                 </div>
             </div>
 
-            <!-- Карточка для отображения даты -->
+            <!-- КАРТОЧКА 2: ДАТА -->
             <div class="date-card">
                 <div class="date-display">
-                    <!-- Текущая дата -->
+                    <!-- Большая дата -->
                     <div class="date-large">{{ date }}</div>
                     <!-- День недели -->
                     <div class="weekday">{{ weekday }}</div>
                 </div>
 
-                <!-- Дополнительные форматы даты -->
+                <!-- Дополнительные форматы даты (три строчки) -->
                 <div class="date-details">
-                    <!-- Первый вариант формата -->
+                    <!-- Строчка 1: Короткий формат -->
                     <div class="detail-item">
                         <i class="fas fa-calendar-alt"></i>
                         <span>Короткий формат: {{ date_short }}</span>
                     </div>
-                    <!-- Второй вариант формата -->
+                    <!-- Строчка 2: ISO формат -->
                     <div class="detail-item">
                         <i class="fas fa-calendar-check"></i>
                         <span>ISO формат: {{ iso_date }}</span>
                     </div>
-                    <!-- Третий вариант формата -->
+                    <!-- Строчка 3: 12-часовой формат -->
                     <div class="detail-item">
                         <i class="fas fa-clock"></i>
                         <span>12-часовой формат: {{ time_12h }}</span>
@@ -112,99 +109,104 @@ Flask использует шаблонизатор Jinja2 для подстан
                 </div>
             </div>
 
-            <!-- Карточка с детализированной информацией -->
+            <!-- КАРТОЧКА 3: ДЕТАЛИ (цифры по отдельности) -->
             <div class="info-card">
                 <!-- Заголовок карточки -->
                 <h3><i class="fas fa-info-circle"></i> Детали</h3>
 
-                <!-- Сетка для отображения отдельных компонентов времени -->
+                <!-- Сетка 3x2 для цифр -->
                 <div class="info-grid">
-                    <!-- Часы -->
+                    <!-- Ячейка 1: Часы -->
                     <div class="info-item">
                         <div class="info-label">Часы</div>
                         <div class="info-value">{{ hour }}</div>
                     </div>
-                    <!-- Минуты -->
+                    <!-- Ячейка 2: Минуты -->
                     <div class="info-item">
                         <div class="info-label">Минуты</div>
                         <div class="info-value">{{ minute }}</div>
                     </div>
-                    <!-- Секунды -->
+                    <!-- Ячейка 3: Секунды -->
                     <div class="info-item">
                         <div class="info-label">Секунды</div>
                         <div class="info-value">{{ second }}</div>
                     </div>
-                    <!-- День -->
+                    <!-- Ячейка 4: День -->
                     <div class="info-item">
                         <div class="info-label">День</div>
                         <div class="info-value">{{ day }}</div>
                     </div>
-                    <!-- Месяц -->
+                    <!-- Ячейка 5: Месяц -->
                     <div class="info-item">
                         <div class="info-label">Месяц</div>
                         <div class="info-value">{{ month }}</div>
                     </div>
-                    <!-- Год -->
+                    <!-- Ячейка 6: Год -->
                     <div class="info-item">
                         <div class="info-label">Год</div>
                         <div class="info-value">{{ year }}</div>
                     </div>
                 </div>
 
-                <!-- Unix timestamp -->
+                <!-- Unix timestamp (для компьютерных гиков) -->
                 <div class="timestamp">
                     <i class="fas fa-fingerprint"></i>
-                    Временная метка (timestamp): <code>{{ timestamp }}</code>
+                    Временная метка: <code>{{ timestamp }}</code>
                 </div>
             </div>
 
-            <!-- Карточка с элементами управления -->
+            <!-- КАРТОЧКА 4: УПРАВЛЕНИЕ (кнопки) -->
             <div class="control-card">
                 <h3><i class="fas fa-cogs"></i> Управление</h3>
 
-                <!-- Контейнер для кнопок -->
+                <!-- Три кнопки в ряд -->
                 <div class="controls">
-                    <!-- Кнопка обновления времени -->
+                    <!-- Кнопка 1: Обновить время -->
                     <button id="refreshBtn" class="btn btn-primary">
                         <i class="fas fa-sync-alt"></i> Обновить время
                     </button>
 
-                    <!-- Кнопка получения JSON данных -->
+                    <!-- Кнопка 2: Получить JSON -->
                     <button id="apiBtn" class="btn btn-secondary">
                         <i class="fas fa-code"></i> Получить JSON
                     </button>
 
-                    <!-- Кнопка копирования времени -->
+                    <!-- Кнопка 3: Копировать время -->
                     <button id="copyBtn" class="btn btn-success">
                         <i class="fas fa-copy"></i> Копировать время
                     </button>
                 </div>
 
-                <!-- Переключатель автообновления -->
+                <!-- Галочка для автообновления -->
                 <div class="auto-refresh">
                     <label for="autoRefresh">
-                        <!-- Чекбокс для включения/выключения автообновления -->
+                        <!-- Сама галочка -->
                         <input type="checkbox" id="autoRefresh" checked>
+                        <!-- Текст рядом -->
                         Автообновление (каждую секунду)
                     </label>
                 </div>
             </div>
         </main>
 
-        <!-- Подвал страницы -->
+        <!-- ПОДВАЛ сайта (как табличка "сделано в ...") -->
         <footer class="footer">
             <!-- Информация о приложении -->
             <p>Приложение FlaskDateTimeVD04 создано с использованием Flask и Python</p>
+            <!-- Ссылки -->
             <p>Текущая версия: 1.0.0 | <a href="/health">Статус приложения</a> | <a href="/about">О приложении</a></p>
 
-            <!-- Ссылки на технологии -->
+            <!-- Иконки технологий -->
             <div class="footer-links">
+                <!-- Ссылка на Flask -->
                 <a href="https://flask.palletsprojects.com/" target="_blank">
                     <i class="fab fa-python"></i> Flask
                 </a>
+                <!-- Ссылка на JavaScript -->
                 <a href="https://developer.mozilla.org/ru/docs/Web/JavaScript" target="_blank">
                     <i class="fab fa-js"></i> JavaScript
                 </a>
+                <!-- Ссылка на CSS -->
                 <a href="https://www.w3.org/Style/CSS/" target="_blank">
                     <i class="fab fa-css3-alt"></i> CSS3
                 </a>
@@ -212,12 +214,11 @@ Flask использует шаблонизатор Jinja2 для подстан
         </footer>
     </div>
 
-    <!-- Всплывающее уведомление (скрыто по умолчанию) -->
-    <!-- JavaScript будет показывать это уведомление при различных действиях -->
+    <!-- УВЕДОМЛЕНИЕ (всплывашка в углу) -->
+    <!-- Сначала не видна, JavaScript будет её показывать -->
     <div id="notification" class="notification"></div>
 
-    <!-- Подключение JavaScript файла -->
-    <!-- Файл script.js содержит логику для динамического обновления времени -->
+    <!-- Подключаем JavaScript (мозги для интерактивности) -->
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
